@@ -1,4 +1,4 @@
-import {
+const {
   prop,
   has,
   mapObjIndexed,
@@ -11,7 +11,7 @@ import {
   unless,
   always,
   mergeRight,
-} from "ramda";
+} = require("ramda");
 
 const createVariablesManager = when(
   has("variables"),
@@ -110,7 +110,7 @@ function createCpData({ slideObjects }) {
  * @param {object} Settings
  * @returns {object} A mocked version of the JavaScript window object.
  */
-export default function (data) {
+module.exports = function (data) {
   const eventEmitter = createCpAPIEventEmitter(data);
 
   return {
@@ -122,4 +122,4 @@ export default function (data) {
     cpAPIEventEmitter: eventEmitter,
     alert: jest.fn(),
   };
-}
+};
