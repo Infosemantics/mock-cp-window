@@ -38,3 +38,23 @@ test("expect to mock variables", () => {
 
   expect(mockWindow.cpAPIInterface.getVariableValue("foo")).toBe("bar");
 });
+
+describe("Mock slide objects", () => {
+  test("Create basic slide object data", () => {
+    const mockWindow = index({
+      slideObjects: {
+        foo: true,
+      },
+    });
+
+    expect(mockWindow.cp.D).toStrictEqual({
+      foo: {
+        apsn: "Slide1",
+        mdi: "fooc",
+      },
+      fooc: {
+        dn: "foo",
+      },
+    });
+  });
+});

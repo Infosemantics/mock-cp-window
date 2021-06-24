@@ -12,6 +12,7 @@ const {
   always,
   mergeRight,
 } = require("ramda");
+const flatMapObjIndexed = require("./utils/flatMapObjIndexed");
 
 const createVariablesManager = when(
   has("variables"),
@@ -79,10 +80,7 @@ function createCpAPIEventEmitter(data) {
   };
 }
 
-function createSlideObjectDataMock(slideObject, slideObjectName) {
-  // Pass in false, we want something that is NOT a slide object
-  if (!slideObject) return {};
-
+function createSlideObjectAccessibilityData(slideObject, slideObjectName) {
   return pipe(
     unless(is(Object), always({})),
     mergeRight({
@@ -92,9 +90,31 @@ function createSlideObjectDataMock(slideObject, slideObjectName) {
   )(slideObject);
 }
 
+function createSlideObjectDataMock(slideObject, slideObjectName) {
+  // Pass in false, we want something that is NOT a slide object
+  if (!slideObject) return {};
+
+  return {
+    [slideObjectName]: createSlideObjectAccessibilityData(
+      slideObject,
+      slideObjectName
+    ),
+    [slideObjectName + "c"]: {
+      dn: slideObjectName,
+    },
+  };
+  // return pipe(
+  //   unless(is(Object), always({})),
+  //   mergeRight({
+  //     apsn: "Slide1",
+  //     mdi: slideObjectName + "c",
+  //   })
+  // )(slideObject);
+}
+
 function createCpData({ slideObjects }) {
   if (!slideObjects) return null;
-  return mapObjIndexed(createSlideObjectDataMock, slideObjects);
+  return flatMapObjIndexed(createSlideObjectDataMock, slideObjects);
 }
 
 /**
