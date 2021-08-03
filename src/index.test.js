@@ -17,6 +17,7 @@ test("expect to mock variables", () => {
     alert: anyFunction,
     cpAPIEventEmitter: {
       addEventListener: anyFunction,
+      removeEventListener: anyFunction,
       dispatchEvent: anyFunction,
     },
     cpAPIInterface: {
@@ -56,5 +57,53 @@ describe("Mock slide objects", () => {
         dn: "foo",
       },
     });
+  });
+});
+
+describe("Mock events", () => {
+  test("Add and remove generic events", () => {
+    const mockWindow = index({
+      variables: {
+        anything: "anything",
+      },
+    });
+
+    let counter = 0;
+    const count = () => counter++;
+
+    mockWindow.cpAPIEventEmitter.addEventListener("count", count);
+    mockWindow.cpAPIEventEmitter.dispatchEvent("count");
+    expect(counter).toBe(1);
+
+    mockWindow.cpAPIEventEmitter.removeEventListener("count", count);
+    mockWindow.cpAPIEventEmitter.dispatchEvent("count");
+    expect(counter).toBe(1);
+  });
+
+  test("Add and remove variable events", () => {
+    const mockWindow = index({
+      variables: {
+        foobar: "default",
+      },
+    });
+
+    let counter = 0;
+    const count = () => counter++;
+
+    mockWindow.cpAPIEventEmitter.addEventListener(
+      "CPAPI_VARIABLEVALUECHANGED",
+      count,
+      "foobar"
+    );
+    mockWindow.cpAPIInterface.setVariableValue("foobar", "new");
+    expect(counter).toBe(1);
+
+    mockWindow.cpAPIEventEmitter.removeEventListener(
+      "CPAPI_VARIABLEVALUECHANGED",
+      count,
+      "foobar"
+    );
+    mockWindow.cpAPIInterface.setVariableValue("foobar", "old");
+    expect(counter).toBe(1);
   });
 });
