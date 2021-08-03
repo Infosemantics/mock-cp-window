@@ -3,6 +3,7 @@ const {
   has,
   mapObjIndexed,
   pipe,
+  without,
   when,
   values,
   objOf,
@@ -57,6 +58,20 @@ function createCpAPIEventEmitter(data) {
       } else {
         if (!variableListeners[varName]) variableListeners[varName] = [];
         variableListeners[varName].push(callback);
+      }
+    }),
+
+    removeEventListener: jest.fn((event, callback, varName) => {
+      if (isNil(varName)) {
+        // NOT A VARIABLE EVENT
+        if (!listeners[event]) return;
+        listeners[event] = without([callback], listeners[event]);
+      } else {
+        if (!variableListeners[varName]) return;
+        variableListeners[varName] = without(
+          [callback],
+          variableListeners[varName]
+        );
       }
     }),
 
