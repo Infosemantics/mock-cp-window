@@ -13,6 +13,7 @@ const {
   always,
   mergeRight,
 } = require("ramda");
+const { default: mockDocument } = require("./mocks/mockDocument");
 const flatMapObjIndexed = require("./utils/flatMapObjIndexed");
 
 const createVariablesManager = when(
@@ -149,6 +150,7 @@ module.exports = function (data) {
   const eventEmitter = createCpAPIEventEmitter(data);
 
   return {
+    document: mockDocument(data),
     cp: {
       variablesManager: createVariablesManager(data),
       D: createCpData(data),
