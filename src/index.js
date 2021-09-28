@@ -12,9 +12,13 @@ const {
   unless,
   always,
   mergeRight,
+  drop,
+  omit,
 } = require("ramda");
 const mockDocument = require("./mocks/mockDocument");
+const mockStateData = require("./mocks/mockStateData");
 const flatMapObjIndexed = require("./utils/flatMapObjIndexed");
+const getSINumberForName = require("./utils/getSINumberForName");
 
 const createVariablesManager = when(
   has("variables"),
@@ -102,13 +106,25 @@ function createSlideObjectAccessibilityData(slideObject, slideObjectName) {
     mergeRight({
       apsn: "Slide1",
       mdi: slideObjectName + "c",
-    })
+      stl: mockStateData(slideObject),
+    }),
+    omit(["states"])
   )(slideObject);
 }
 
 function createSlideObjectDataMock(slideObject, slideObjectName) {
   // Pass in false, we want something that is NOT a slide object
   if (!slideObject) return {};
+
+  let stateObjects = {};
+  if (slideObject.states)
+    slideObject.states.forEach((stateName) => {
+      const name = getSINumberForName(stateName);
+      stateObjects = {
+        ...createSlideObjectDataMock(true, name),
+        ...stateObjects,
+      };
+    });
 
   return {
     [slideObjectName]: createSlideObjectAccessibilityData(
@@ -118,6 +134,7 @@ function createSlideObjectDataMock(slideObject, slideObjectName) {
     [slideObjectName + "c"]: {
       dn: slideObjectName,
     },
+    ...stateObjects,
   };
   // return pipe(
   //   unless(is(Object), always({})),

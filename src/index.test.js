@@ -1,6 +1,7 @@
 const index = require("./index.js");
 
 const anyFunction = expect.any(Function);
+const anyNumber = expect.any(Number);
 
 test("expect to be defined", () => {
   expect(index).toBeDefined();
@@ -15,6 +16,9 @@ test("expect to mock variables", () => {
 
   expect(mockWindow).toStrictEqual({
     alert: anyFunction,
+    document: {
+      getElementById: anyFunction,
+    },
     cpAPIEventEmitter: {
       addEventListener: anyFunction,
       removeEventListener: anyFunction,
@@ -45,16 +49,58 @@ describe("Mock slide objects", () => {
     const mockWindow = index({
       slideObjects: {
         foo: true,
+        bar: {
+          states: ["selected"],
+        },
       },
     });
+
+    const stateNumber = mockWindow.cp.D.bar.stl[1].stsi[0];
+    const stateName = `si${stateNumber}`;
 
     expect(mockWindow.cp.D).toStrictEqual({
       foo: {
         apsn: "Slide1",
         mdi: "fooc",
+        stl: [
+          {
+            stn: "Normal",
+            stsi: [anyNumber],
+          },
+        ],
       },
       fooc: {
         dn: "foo",
+      },
+      bar: {
+        apsn: "Slide1",
+        mdi: "barc",
+        stl: [
+          {
+            stn: "Normal",
+            stsi: [anyNumber],
+          },
+          {
+            stn: "selected",
+            stsi: [anyNumber],
+          },
+        ],
+      },
+      barc: {
+        dn: "bar",
+      },
+      [stateName]: {
+        apsn: "Slide1",
+        mdi: stateName + "c",
+        stl: [
+          {
+            stn: "Normal",
+            stsi: [anyNumber],
+          },
+        ],
+      },
+      [stateName + "c"]: {
+        dn: stateName,
       },
     });
   });
