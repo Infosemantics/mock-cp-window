@@ -13,7 +13,7 @@ const {
   always,
   mergeRight,
 } = require("ramda");
-const { default: mockDocument } = require("./mocks/mockDocument");
+const mockDocument = require("./mocks/mockDocument");
 const flatMapObjIndexed = require("./utils/flatMapObjIndexed");
 
 const createVariablesManager = when(
