@@ -6,8 +6,7 @@ const mockDiv = (name, data) => {
 module.exports = (data) => {
   return {
     getElementById: jest.fn((name) => {
-      if (data.slideObjects && data.slideObjects.hasOwnProperty(name))
-        return mockDiv(name, data.slideObjects[name]);
+      if (data.hasOwnProperty(name)) return mockDiv(name, data[name]);
 
       return null;
     }),

@@ -165,12 +165,13 @@ function createCpData({ slideObjects }) {
  */
 module.exports = function (data) {
   const eventEmitter = createCpAPIEventEmitter(data);
+  const cpData = createCpData(data);
 
   return {
-    document: mockDocument(data),
+    document: mockDocument(cpData),
     cp: {
       variablesManager: createVariablesManager(data),
-      D: createCpData(data),
+      D: cpData,
     },
     cpAPIInterface: createCpAPIInterface(data, eventEmitter),
     cpAPIEventEmitter: eventEmitter,
