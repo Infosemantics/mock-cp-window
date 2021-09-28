@@ -3,13 +3,13 @@ const mockDiv = (name, data) => {
     id: name,
   };
 };
-export default (data) => {
+module.exports = (data) => {
   return {
-    getElementById: (name) => {
+    getElementById: jest.fn((name) => {
       if (data.slideObjects && slideObjects.hasOwnProperty(name))
         return mockDiv(name, slideObjects[name]);
 
       return null;
-    },
+    }),
   };
 };

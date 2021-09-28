@@ -1,6 +1,6 @@
 {
   "name": "mock-cp-window",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A mock of the Captivate window for testing in Jest",
   "main": "src/index.js",
   "scripts": {
