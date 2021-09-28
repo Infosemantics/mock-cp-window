@@ -1,4 +1,5 @@
 const index = require("./index.js");
+const getNumberForName = require("./utils/getNumberForName.js");
 
 const anyFunction = expect.any(Function);
 const anyNumber = expect.any(Number);
@@ -55,7 +56,8 @@ describe("Mock slide objects", () => {
       },
     });
 
-    const stateNumber = mockWindow.cp.D.bar.stl[1].stsi[0];
+    // const stateNumber = mockWindow.cp.D.bar.stl[1].stsi[0];
+    const stateNumber = getNumberForName("selected");
     const stateName = `si${stateNumber}`;
     const stateNamec = `${stateName}c`;
 
@@ -66,6 +68,7 @@ describe("Mock slide objects", () => {
       foo: {
         apsn: "Slide1",
         mdi: "fooc",
+        stc: ["foo"],
         stl: [
           {
             stn: "Normal",
@@ -79,6 +82,7 @@ describe("Mock slide objects", () => {
       bar: {
         apsn: "Slide1",
         mdi: "barc",
+        stc: ["bar", stateName],
         stl: [
           {
             stn: "Normal",
@@ -86,7 +90,7 @@ describe("Mock slide objects", () => {
           },
           {
             stn: "selected",
-            stsi: [anyNumber],
+            stsi: [stateNumber],
           },
         ],
       },
@@ -96,6 +100,7 @@ describe("Mock slide objects", () => {
       [stateName]: {
         apsn: "Slide1",
         mdi: stateNamec,
+        bstin: "bar",
         stl: [
           {
             stn: "Normal",
@@ -105,6 +110,83 @@ describe("Mock slide objects", () => {
       },
       [stateNamec]: {
         dn: stateName,
+      },
+    });
+  });
+
+  test.skip("Create slide object data for slide object with multiple objects inside a state", () => {
+    const objectName = "hello";
+    const objectNamec = "helloc";
+
+    const mockWindow = index({
+      slideObjects: {
+        foo: {
+          states: {
+            selected: {
+              extraObjects: [objectName],
+            },
+          },
+        },
+      },
+    });
+
+    const stateNumber = mockWindow.cp.D.foo.stl[1].stsi[0];
+    const stateName = `si${stateNumber}`;
+    const stateNamec = `${stateName}c`;
+
+    const objectNumber = mockWindow.cp.D.foo.stl[1].stsi[1];
+
+    expect(mockWindow.document.getElementById("invalid")).toBe(null);
+    expect(mockWindow.document.getElementById(stateNamec)).not.toBe(null);
+
+    expect(mockWindow.cp.D).toStrictEqual({
+      foo: {
+        apsn: "Slide1",
+        mdi: "fooc",
+        stc: ["foo", stateName],
+        stl: [
+          {
+            stn: "Normal",
+            stsi: [anyNumber],
+          },
+          {
+            stn: "selected",
+            stsi: [stateNumber, anyNumber],
+          },
+        ],
+      },
+      fooc: {
+        dn: "foo",
+      },
+      [stateName]: {
+        apsn: "Slide1",
+        mdi: stateNamec,
+        bstin: "foo",
+        stl: [
+          {
+            stn: "Normal",
+            stsi: [anyNumber],
+          },
+        ],
+      },
+      [stateNamec]: {
+        dn: stateName,
+      },
+      [objectName]: {
+        apsn: "Slide1",
+        mdi: objectNamec,
+        bstiid: anyNumber,
+        stl: [
+          {
+            stn: "Normal",
+            stsi: [objectNumber],
+          },
+        ],
+      },
+      [objectNamec]: {
+        // In the real world this property would not exist
+        // for a state's sub-shape
+        dn: objectName,
       },
     });
   });
