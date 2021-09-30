@@ -1,6 +1,7 @@
 const { pipe, when, is, unless, always, mergeRight, omit } = require("ramda");
 const mockStateData = require("./mockStateData");
 const getSTClist = require("../utils/getSTClist");
+const getNumberForName = require("../utils/getNumberForName");
 
 function createSlideObjectAccessibilityData(
   slideObject,
@@ -29,6 +30,7 @@ module.exports = (slideObject, slideObjectName, original = true) => {
       original
     ),
     [slideObjectName + "c"]: {
+      uid: getNumberForName(slideObjectName),
       dn: slideObjectName,
     },
   };

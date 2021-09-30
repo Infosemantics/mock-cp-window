@@ -61,6 +61,8 @@ describe("Mock slide objects", () => {
     const stateName = `si${stateNumber}`;
     const stateNamec = `${stateName}c`;
 
+    const fooNumber = getNumberForName("foo");
+
     expect(mockWindow.document.getElementById("invalid")).toBe(null);
     expect(mockWindow.document.getElementById(stateNamec)).not.toBe(null);
 
@@ -77,6 +79,7 @@ describe("Mock slide objects", () => {
         ],
       },
       fooc: {
+        uid: fooNumber,
         dn: "foo",
       },
       bar: {
@@ -95,6 +98,7 @@ describe("Mock slide objects", () => {
         ],
       },
       barc: {
+        uid: anyNumber,
         dn: "bar",
       },
       [stateName]: {
@@ -109,6 +113,7 @@ describe("Mock slide objects", () => {
         ],
       },
       [stateNamec]: {
+        uid: anyNumber,
         dn: stateName,
       },
     });
