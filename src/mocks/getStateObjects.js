@@ -2,6 +2,7 @@ const { mapObjIndexed, zipObj } = require("ramda");
 const isArray = require("../utils/isArray");
 const createSlideObjectDataMock = require("./mockGenericData.js");
 const getSINumberForName = require("../utils/getSINumberForName.js");
+const getNumberForName = require("../utils/getNumberForName");
 
 module.exports = (slideObjectName, slideObjectStates) => {
   if (!slideObjectStates) return {};
@@ -19,6 +20,7 @@ module.exports = (slideObjectName, slideObjectStates) => {
     };
 
     stateObjects[name].bstin = slideObjectName;
+    stateObjects[name].bstiid = getNumberForName(slideObjectName);
   }, slideObjectStates);
 
   return stateObjects;

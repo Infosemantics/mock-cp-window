@@ -14,7 +14,7 @@ function createSlideObjectAccessibilityData(
       apsn: "Slide1",
       stc: getSTClist(slideObject, slideObjectName),
       mdi: slideObjectName + "c",
-      stl: mockStateData(slideObject),
+      stl: mockStateData(slideObjectName, slideObject),
     }),
     omit(["states"]),
     when(always(!original), omit(["stc"]))

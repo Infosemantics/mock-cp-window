@@ -1,18 +1,18 @@
 const { forEach } = require("ramda");
 const getNumberForName = require("../utils/getNumberForName");
 
-function makeState(name) {
+function makeState(name, numName) {
   return {
     stn: name,
-    stsi: [getNumberForName(name)],
+    stsi: [getNumberForName(numName)],
   };
 }
-module.exports = (slideObjectData) => {
+module.exports = (slideObjectName, slideObjectData) => {
   const data = [];
   if (slideObjectData.states)
-    forEach((name) => {
-      data.push(makeState(name));
-    }, slideObjectData.states);
+    slideObjectData.states.forEach((name) => {
+      data.push(makeState(name, name));
+    });
 
-  return [makeState("Normal"), ...data];
+  return [makeState("Normal", slideObjectName), ...data];
 };
