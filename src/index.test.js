@@ -115,7 +115,7 @@ describe("Mock slide objects", () => {
         ],
       },
       [stateNamec]: {
-        uid: anyNumber,
+        uid: stateNumber,
         dn: stateName,
       },
     });

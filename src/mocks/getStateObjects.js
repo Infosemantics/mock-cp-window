@@ -14,8 +14,9 @@ module.exports = (slideObjectName, slideObjectStates) => {
 
   mapObjIndexed((stateName, stateData) => {
     const name = getSINumberForName(stateName);
+    const uid = getNumberForName(stateName);
     stateObjects = {
-      ...createSlideObjectDataMock(true, name, false),
+      ...createSlideObjectDataMock(true, name, uid, false),
       ...stateObjects,
     };
 

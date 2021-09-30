@@ -1,3 +1,4 @@
+const getNumberForName = require("../utils/getNumberForName");
 const getStateObjects = require("./getStateObjects");
 const mockGenericData = require("./mockGenericData");
 
@@ -14,8 +15,9 @@ function createSlideObjectDataMock(
   if (slideObject.states)
     stateObjects = getStateObjects(slideObjectName, slideObject.states) || {};
 
+  const uid = getNumberForName(slideObjectName);
   return {
-    ...mockGenericData(slideObject, slideObjectName, original),
+    ...mockGenericData(slideObject, slideObjectName, uid, original),
     ...stateObjects,
   };
 }

@@ -21,8 +21,9 @@ function createSlideObjectAccessibilityData(
   )(slideObject);
 }
 
-module.exports = (slideObject, slideObjectName, original = true) => {
+module.exports = (slideObject, slideObjectName, uid, original = true) => {
   if (!slideObject) return {};
+
   return {
     [slideObjectName]: createSlideObjectAccessibilityData(
       slideObject,
@@ -30,7 +31,7 @@ module.exports = (slideObject, slideObjectName, original = true) => {
       original
     ),
     [slideObjectName + "c"]: {
-      uid: getNumberForName(slideObjectName),
+      uid,
       dn: slideObjectName,
     },
   };
