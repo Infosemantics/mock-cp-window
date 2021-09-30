@@ -127,6 +127,7 @@ module.exports = function (data) {
     cp: {
       variablesManager: createVariablesManager(data),
       D: cpData,
+      changeState: jest.fn(),
     },
     cpAPIInterface: createCpAPIInterface(data, eventEmitter),
     cpAPIEventEmitter: eventEmitter,
