@@ -56,6 +56,7 @@ describe("Mock slide objects", () => {
         bar: {
           states: ["selected"],
           bounds: [10, 10, 10, 10],
+          accessibilityText: "Hello world",
         },
       },
     });
@@ -87,6 +88,7 @@ describe("Mock slide objects", () => {
         uid: fooNumber,
         dn: "foo",
         b,
+        accstr: " ",
       },
       bar: {
         apsn: "Slide1",
@@ -107,6 +109,7 @@ describe("Mock slide objects", () => {
         uid: anyNumber,
         dn: "bar",
         b: [10, 10, 10, 10],
+        accstr: "Hello world",
       },
       [stateName]: {
         apsn: "Slide1",
@@ -124,6 +127,7 @@ describe("Mock slide objects", () => {
         uid: stateNumber,
         dn: stateName,
         b,
+        accstr: " ",
       },
     });
   });

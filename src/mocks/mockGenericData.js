@@ -16,7 +16,7 @@ function createSlideObjectAccessibilityData(
       mdi: slideObjectName + "c",
       stl: mockStateData(slideObjectName, slideObject),
     }),
-    omit(["states", "bounds"]),
+    omit(["states", "bounds", "accessibilityText"]),
     when(always(!original), omit(["stc"]))
   )(slideObject);
 }
@@ -34,6 +34,7 @@ module.exports = (slideObject, slideObjectName, uid, original = true) => {
       uid,
       dn: slideObjectName,
       b: slideObject.bounds || [0, 0, 0, 0],
+      accstr: slideObject.accessibilityText || " ",
     },
   };
 };
