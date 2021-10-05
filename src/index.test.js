@@ -4,6 +4,8 @@ const getNumberForName = require("./utils/getNumberForName.js");
 const anyFunction = expect.any(Function);
 const anyNumber = expect.any(Number);
 
+const b = [0, 0, 0, 0];
+
 test("expect to be defined", () => {
   expect(index).toBeDefined();
 });
@@ -30,6 +32,7 @@ test("expect to mock variables", () => {
       setVariableValue: anyFunction,
     },
     cp: {
+      changeState: anyFunction,
       variablesManager: {
         varInfos: [
           {
@@ -52,6 +55,7 @@ describe("Mock slide objects", () => {
         foo: true,
         bar: {
           states: ["selected"],
+          bounds: [10, 10, 10, 10],
         },
       },
     });
@@ -82,6 +86,7 @@ describe("Mock slide objects", () => {
       fooc: {
         uid: fooNumber,
         dn: "foo",
+        b,
       },
       bar: {
         apsn: "Slide1",
@@ -101,6 +106,7 @@ describe("Mock slide objects", () => {
       barc: {
         uid: anyNumber,
         dn: "bar",
+        b: [10, 10, 10, 10],
       },
       [stateName]: {
         apsn: "Slide1",
@@ -117,6 +123,7 @@ describe("Mock slide objects", () => {
       [stateNamec]: {
         uid: stateNumber,
         dn: stateName,
+        b,
       },
     });
   });

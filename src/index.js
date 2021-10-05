@@ -8,13 +8,6 @@ const {
   values,
   objOf,
   isNil,
-  is,
-  unless,
-  always,
-  mergeRight,
-  drop,
-  omit,
-  curry,
 } = require("ramda");
 const mockDocument = require("./mocks/mockDocument");
 const createSlideObjectDataMock = require("./mocks/mockSlideObject");
