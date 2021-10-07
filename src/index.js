@@ -117,6 +117,9 @@ module.exports = function (data) {
 
   return {
     document: mockDocument(cpData),
+    getComputedStyle: jest.fn(() => {
+      return {};
+    }),
     cp: {
       variablesManager: createVariablesManager(data),
       D: cpData,
