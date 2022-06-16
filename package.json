@@ -1,6 +1,6 @@
 {
-  "name": "mock-cp-window",
-  "version": "0.0.8",
+  "name": "@Infosemantics/mock-cp-window",
+  "version": "0.0.9",
   "description": "A mock of the Captivate window for testing in Jest",
   "main": "src/index.js",
   "scripts": {
@@ -8,15 +8,14 @@
     "test-watch": "jest --watchAll -i"
   },
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/WidgetKing/mock-cp-window.git"
+    "url": "git://github.com/Infosemantics/mock-cp-window.git"
   },
   "author": "Tristan Ward",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/WidgetKing/mock-cp-window/issues"
+    "url": "https://github.com/Infosemantics/mock-cp-window/issues"
   },
-  "homepage": "https://github.com/WidgetKing/mock-cp-window#readme",
+  "homepage": "https://github.com/Infosemantics/mock-cp-window#readme",
   "devDependencies": {
     "jest": "^26.6.3"
   },
